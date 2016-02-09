@@ -21,11 +21,9 @@ from GUI import *
 #TODO: Set-up Storage Types
 
 #GUI Set-Up
-root = Tk()
-root.geometry("250x150+300+300")
-
-window = windowManagement(root)
-
+root = Tk() #Core Module
+root.geometry("1280x720") #Window Size 720p
+window = windowManagement(root) #New Window
 
 #Program Loop
 root.mainloop()
