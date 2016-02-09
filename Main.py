@@ -20,8 +20,6 @@ from GUI import *
 
 #TODO: Set-up Storage Types
 
-
-
 #GUI Set-Up
 root = Tk()
 root.geometry("250x150+300+300")
