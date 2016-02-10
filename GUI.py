@@ -12,6 +12,7 @@
 
 #IMPORTS
 from tkinter import *
+from PIL import Image, ImageTk
 
 #GUI Management
 class windowManagement(Frame):
@@ -29,28 +30,41 @@ class windowManagement(Frame):
         #Add Window Title
         self.parent.title("U08007")
         
-        #Menu Bar
-        guiMenuBar = Menu(self.parent)
-        self.parent.config(menu=guiMenuBar)
+        #MENU BAR
+        guiMenubar = Menu(self.parent)
+        self.parent.config(menu=guiMenubar)
 
         #Drop Down Menu -FILE
-        guiMenuBarFile = Menu(guiMenuBar)
+        guiMenubarFile = Menu(guiMenubar)
 
         #Action Menu - NEW
-        guiMenuBarFileNew = Menu(guiMenuBarFile)
+        guiMenubarFileNew = Menu(guiMenubarFile)
         
         #Add Options For NEW Menu
-        guiMenuBarFileNew.add_command(label="Event", command=self.onNewEvent) #New Event
-        guiMenuBarFileNew.add_command(label="Tag", command=self.onNewTag) #New Tag
-        guiMenuBarFile.add_cascade(label="New", menu=guiMenuBarFileNew, underline=0)
+        guiMenubarFileNew.add_command(label="Event", command=self.onNewEvent) #New Event
+        guiMenubarFileNew.add_command(label="Tag", command=self.onNewTag) #New Tag
+        guiMenubarFile.add_cascade(label="New", menu=guiMenubarFileNew, underline=0)
         
         #Add Separator to Dropdown
-        guiMenuBarFile.add_separator()
+        guiMenubarFile.add_separator()
 
         #Quit Option
-        guiMenuBarFile.add_command(label="Quit", command=self.onExit)
-        guiMenuBar.add_cascade(label="File", menu=guiMenuBarFile)
+        guiMenubarFile.add_command(label="Quit", command=self.onExit)
+        guiMenubar.add_cascade(label="File", menu=guiMenubarFile)
 
+        #TOOLBAR
+        guiToolbar = Frame(self.parent, bd=1, relief=RAISED)
+
+        #Save Button
+        self.img = Image.open("resources/save.png")
+        saveImage = ImageTk.PhotoImage(self.img)
+
+        saveButton = Button(guiToolbar, image=saveImage, relief=FLAT, command=self.onSave)
+        saveButton.image = saveImage
+        saveButton.pack(side=LEFT, padx=2,pady=2)
+
+        guiToolbar.pack(side=TOP, fill=X)
+        self.pack()
 
     #New Event
     def onNewEvent(self):
@@ -59,6 +73,11 @@ class windowManagement(Frame):
     #New Tag
     def onNewTag(self):
         print("This Will Allow The User To Create A Tag.")
+
+    #Save Calender
+    def onSave(self):
+        print("This Will Save The Calender To File.")
+
     
     #Close Window & Quit Program
     def onExit(self):
