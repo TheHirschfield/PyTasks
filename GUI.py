@@ -44,6 +44,9 @@ class windowManagement(Frame):
         guiMenubarFileNew.add_command(label="Event", command=self.onNewEvent) #New Event
         guiMenubarFileNew.add_command(label="Tag", command=self.onNewTag) #New Tag
         guiMenubarFile.add_cascade(label="New", menu=guiMenubarFileNew, underline=0)
+
+        guiMenubarFile.add_command(label="Save", command=self.onSave)
+        guiMenubarFile.add_command(label="Load", command=self.onLoad)
         
         #Add Separator to Dropdown
         guiMenubarFile.add_separator()
@@ -59,6 +62,7 @@ class windowManagement(Frame):
         self.img = Image.open("resources/save.png")
         saveImage = ImageTk.PhotoImage(self.img)
 
+        #Add Save Button to Toolbar
         saveButton = Button(guiToolbar, image=saveImage, relief=FLAT, command=self.onSave)
         saveButton.image = saveImage
         saveButton.pack(side=LEFT, padx=2,pady=2)
@@ -78,6 +82,9 @@ class windowManagement(Frame):
     def onSave(self):
         print("This Will Save The Calender To File.")
 
+    #Load Calender
+    def onLoad(self):
+        print("This Will Load The Calender From File.")
     
     #Close Window & Quit Program
     def onExit(self):
