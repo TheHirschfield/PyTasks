@@ -6,22 +6,26 @@
    Authors: Oliver Hirschfield, Curtis Geddes, Christian Rojas,
    Francesca Ayeni, Fayosi Olukoya, Kieran St Louis.
 
-   File: Main Program File
+   File: Event Storage
                                        
 """
 
+import time
+import datetime
 
-#IMPORTS
-import csv
-import sys
-from tkinter import *
 
-from GUI import *
+#Main Event Storage
+events = []
 
-#GUI Set-Up
-root = Tk() #Core Module
-root.geometry("1280x720") #Window Size 720p
-window = windowManagement(root) #New Window
+def addEvent(title, timestamp, location):
 
-#Program Loop
-root.mainloop()
+    
+    temp = [title, timestamp, location]
+
+    #Add To Main Storage
+    events.append(temp)
+
+    print("New Event Added: ", temp)
+
+addEvent("Birthday", time.time(),"Home")
+

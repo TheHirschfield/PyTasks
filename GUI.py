@@ -14,6 +14,8 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
+from Events import *
+
 #GUI Management
 class windowManagement(Frame):
 
