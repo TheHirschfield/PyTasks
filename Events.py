@@ -10,9 +10,9 @@
                                        
 """
 
+#Import Time Packages
 import time
 import datetime
-
 
 #Main Event Storage
 events = []
@@ -20,12 +20,13 @@ events = []
 #Add Event to Storage
 def addEvent(title, timestamp, location):
 
-    
+    #Create Temp New Event List
     temp = [title, timestamp, location]
 
     #Add To Main Storage
     events.append(temp)
 
+    #Debug Notify
     print("Event Added: ", temp)
 
 #Remove an Event from Storage
