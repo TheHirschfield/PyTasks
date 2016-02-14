@@ -33,9 +33,10 @@ def removeEvent(identity):
     print ("Event Removed: ", events[identity])
     del events[identity]
 
+#Convert Timestamp To Readable Form
+def convertEventTimestamp(date):
+    return datetime.datetime.fromtimestamp(date).strftime('%Y-%m-%d %H:%M:%S')
+
 
 addEvent("Birthday", time.time(),"Home")
-print(events)
 removeEvent(0)
-
-print(events)
