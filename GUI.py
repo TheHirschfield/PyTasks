@@ -132,7 +132,7 @@ class windowManagement(Frame):
 
         guiToolbar.pack(side=TOP, fill=X)
         
-        self.pack()
+        self.pack(expand=1, fill='both')
 
     #Set Styling For Buttons
     def calenderStyleWidget(self):
@@ -142,6 +142,7 @@ class windowManagement(Frame):
         )
         style.layout('L.TButton', styleArrowLayout('left'))
         style.layout('R.TButton', styleArrowLayout('right'))
+        style.configure('Calendar.Treeview', rowheight=40)
     
     def calenderPlaceWidget(self):
         #Header Frame
@@ -149,7 +150,7 @@ class windowManagement(Frame):
         leftMonthChangeButton = ttk.Button(calenderFrame, style='L.TButton', command=self.setPreviousMonth)
         rightMonthChangeButton = ttk.Button(calenderFrame, style='R.TButton', command=self.setNextMonth)
         self.calenderHeader = ttk.Label(calenderFrame, width=15, anchor='center')
-        self.calenderMainView = ttk.Treeview(show='', selectmode='none', height=7)
+        self.calenderMainView = ttk.Treeview(show='', selectmode='none', height=7, style='Calendar.Treeview')
         
         #Pack Header
         calenderFrame.pack(in_=self, side='top', pady=4, anchor='center')
@@ -168,8 +169,7 @@ class windowManagement(Frame):
 
         maxwidth = max(font.measure(col) for col in cols)*5
         for col in cols:
-            self.calenderMainView.column(col, width=maxwidth, minwidth=maxwidth, anchor='e')
-
+            self.calenderMainView.column(col, width=maxwidth, minwidth=maxwidth, anchor='c')
  
     def calenderMake(self):
         year, month = self.date.year, self.date.month
