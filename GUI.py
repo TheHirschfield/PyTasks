@@ -22,10 +22,19 @@ from Events import *
 #GUI Management
 class windowManagement(Frame):
 
+    datetime = calendar.datetime.datetime
+    timedelta = calendar.datetime.timedelta
+    
     #GUI Setup
     def __init__(self, parent):
         Frame.__init__(self, parent)
 
+        #Get Current Calender States
+        firstDay = calendar.MONDAY
+        year = self.datetime.now().year
+        month = self.datetime.now().month
+        
+        
         self.parent = parent
         self.initUI()
 
