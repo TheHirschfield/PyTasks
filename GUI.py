@@ -14,10 +14,16 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from tkinter import ttk
-
+import tkinter.font
 import calendar
 
 from Events import *
+
+def getCalendar(locale, fd):
+    if locale is None:
+        return calendar.TextCalendar(fd)
+    else:
+        return calendar.LocaleTextCalendar(fd, locale)
 
 #GUI Management
 class windowManagement(Frame):
@@ -33,11 +39,26 @@ class windowManagement(Frame):
         firstDay = calendar.MONDAY
         year = self.datetime.now().year
         month = self.datetime.now().month
-        
+
+        self.date = self.datetime(year,month,1)
+        self.selected = None
+
+        self.cal = getCalendar(None,firstDay)
         
         self.parent = parent
         self.initUI()
 
+        self.calenderStyleWidget()
+        self.calenderPlaceWidget()
+        self.calenderConfig()
+
+        self.items = [self.calenderMainView.insert('', 'end', values='')
+                            for _ in range(6)]
+        
+        self.calenderMake()
+
+        self.calenderMainView.bind('<Map>',self.minsize)
+        
     #Main Window Creation
     def initUI(self):
 
@@ -110,16 +131,8 @@ class windowManagement(Frame):
         loadButton.pack(side=LEFT, padx=2,pady=2)
 
         guiToolbar.pack(side=TOP, fill=X)
-
-        self.calenderStyleWidget()
-        self.calenderPlaceWidget()
-
-        self.calenderMake()
         
         self.pack()
-    
-    def calenderMake(self):
-        calenderHeader = "Month"
 
     #Set Styling For Buttons
     def calenderStyleWidget(self):
@@ -135,7 +148,7 @@ class windowManagement(Frame):
         calenderFrame = ttk.Frame(self)
         leftMonthChangeButton = ttk.Button(calenderFrame, style='L.TButton', command=self.onSave)
         rightMonthChangeButton = ttk.Button(calenderFrame, style='R.TButton', command=self.onSave)
-        self.calenderHeader = ttk.Label(calenderFrame, text="Test", width=15, anchor='center')
+        self.calenderHeader = ttk.Label(calenderFrame, width=15, anchor='center')
         self.calenderMainView = ttk.Treeview(show='', selectmode='none', height=7)
         
         #Pack Header
@@ -144,7 +157,36 @@ class windowManagement(Frame):
         self.calenderHeader.grid(in_=calenderFrame, column=1, row=0, padx=12)
         rightMonthChangeButton.grid(in_=calenderFrame, column=2, row=0)
         self.calenderMainView.pack(in_=self, expand=1, fill='both', side='bottom')
-        
+
+    def calenderConfig(self):
+        cols = self.cal.formatweekheader(3).split()
+        self.calenderMainView['columns'] = cols
+        self.calenderMainView.tag_configure('header',background='grey90')
+        self.calenderMainView.insert('','end', values=cols, tag='header')
+
+        font = tkinter.font.Font()
+        maxwidth = max(font.measure(col) for col in cols)
+        for col in cols:
+            self.calenderMainView.column(col, width=maxwidth, minwidth=maxwidth, anchor='e')
+
+    def calenderMake(self):
+        year, month = self.date.year, self.date.month
+
+        #Update Calender Month Listing
+        calHeader = self.cal.formatmonthname(year, month, 0)
+        self.calenderHeader['text'] =  calHeader.title()
+
+        _cal = self.cal.monthdayscalendar(year,month)
+        for indx, i in enumerate(self.items):
+            week = _cal[indx] if indx < len(_cal) else []
+            fmt_week = [('%02d' % day) if day else '' for day in week]
+            self.calenderMainView.item(i, values=fmt_week)
+    
+    def minsize(self,evt):
+        width, height = self.calenderMainView.master.geometry().split('x')
+        height = height[:height.index('+')]
+        self.calenderMainView.master.minsize(width, height)
+    
     ''' Main GUI Callbacks '''
     
     #New Event
