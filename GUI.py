@@ -13,6 +13,9 @@
 #IMPORTS
 from tkinter import *
 from PIL import Image, ImageTk
+from tkinter import ttk
+
+import calendar
 
 from Events import *
 
@@ -88,9 +91,40 @@ class windowManagement(Frame):
         loadButton.pack(side=LEFT, padx=2,pady=2)
 
         guiToolbar.pack(side=TOP, fill=X)
+
+        self.calenderStyleWidget()
+        self.calenderPlaceWidget()
+
+        self.calenderMake()
         
         self.pack()
 
+    def calenderMake(self):
+        calenderHeader = "Month"
+
+    def calenderStyleWidget(self):
+        style = ttk.Style(self.master)
+        styleArrowLayout = lambda dir: (
+            [('Button.focus', {'children': [('Button.%sarrow' % dir, None)]})]
+        )
+        style.layout('L.TButton', styleArrowLayout('left'))
+        style.layout('R.TButton', styleArrowLayout('right'))
+    
+    def calenderPlaceWidget(self):
+        #Header Frame
+        calenderFrame = ttk.Frame(self)
+        leftMonthChangeButton = ttk.Button(calenderFrame, style='L.TButton', command=self.onSave)
+        rightMonthChangeButton = ttk.Button(calenderFrame, style='R.TButton', command=self.onSave)
+        self.calenderHeader = ttk.Label(calenderFrame,width=15, anchor='center')
+        #Pack Header
+        calenderFrame.pack(in_=self, side='top', pady=4, anchor='center')
+        leftMonthChangeButton.grid(in_=calenderFrame)
+        self.calenderHeader.grid(in_=calenderFrame, column=1, row=0, padx=12)
+        rightMonthChangeButton.grid(in_=calenderFrame, column=2, row=0)
+        #self.calendarView.pack(in_=self, expand=1, fill='both', side='bottom')
+        
+    ''' Main GUI Callbacks '''
+    
     #New Event
     def onNewEvent(self):
         print("This Will Allow The User To Create An Event.")
