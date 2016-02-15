@@ -165,10 +165,15 @@ class windowManagement(Frame):
         self.calenderMainView.insert('','end', values=cols, tag='header')
 
         font = tkinter.font.Font()
-        maxwidth = max(font.measure(col) for col in cols)
+        '''
+        !LEAVE OUT FOR MAX WIDTH!
+
+        maxwidth = max(font.measure(col) for col in cols)*2
         for col in cols:
             self.calenderMainView.column(col, width=maxwidth, minwidth=maxwidth, anchor='e')
 
+        '''
+ 
     def calenderMake(self):
         year, month = self.date.year, self.date.month
 
