@@ -107,9 +107,12 @@ class windowManagement(Frame):
         
         self.pack()
 
+
+    
     def calenderMake(self):
         calenderHeader = "Month"
 
+    #Set Styling For Buttons
     def calenderStyleWidget(self):
         style = ttk.Style(self.master)
         styleArrowLayout = lambda dir: (
@@ -123,7 +126,7 @@ class windowManagement(Frame):
         calenderFrame = ttk.Frame(self)
         leftMonthChangeButton = ttk.Button(calenderFrame, style='L.TButton', command=self.onSave)
         rightMonthChangeButton = ttk.Button(calenderFrame, style='R.TButton', command=self.onSave)
-        self.calenderHeader = ttk.Label(calenderFrame,width=15, anchor='center')
+        self.calenderHeader = ttk.Label(calenderFrame, text="Test", width=15, anchor='center')
         #Pack Header
         calenderFrame.pack(in_=self, side='top', pady=4, anchor='center')
         leftMonthChangeButton.grid(in_=calenderFrame)
