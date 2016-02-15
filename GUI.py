@@ -127,12 +127,14 @@ class windowManagement(Frame):
         leftMonthChangeButton = ttk.Button(calenderFrame, style='L.TButton', command=self.onSave)
         rightMonthChangeButton = ttk.Button(calenderFrame, style='R.TButton', command=self.onSave)
         self.calenderHeader = ttk.Label(calenderFrame, text="Test", width=15, anchor='center')
+        self.calenderMainView = ttk.Treeview(show='', selectmode='none', height=7)
+        
         #Pack Header
         calenderFrame.pack(in_=self, side='top', pady=4, anchor='center')
         leftMonthChangeButton.grid(in_=calenderFrame)
         self.calenderHeader.grid(in_=calenderFrame, column=1, row=0, padx=12)
         rightMonthChangeButton.grid(in_=calenderFrame, column=2, row=0)
-        #self.calendarView.pack(in_=self, expand=1, fill='both', side='bottom')
+        self.calenderMainView.pack(in_=self, expand=1, fill='both', side='bottom')
         
     ''' Main GUI Callbacks '''
     
