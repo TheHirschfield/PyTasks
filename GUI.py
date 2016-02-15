@@ -146,8 +146,8 @@ class windowManagement(Frame):
     def calenderPlaceWidget(self):
         #Header Frame
         calenderFrame = ttk.Frame(self)
-        leftMonthChangeButton = ttk.Button(calenderFrame, style='L.TButton', command=self.onSave)
-        rightMonthChangeButton = ttk.Button(calenderFrame, style='R.TButton', command=self.onSave)
+        leftMonthChangeButton = ttk.Button(calenderFrame, style='L.TButton', command=self.setPreviousMonth)
+        rightMonthChangeButton = ttk.Button(calenderFrame, style='R.TButton', command=self.setNextMonth)
         self.calenderHeader = ttk.Label(calenderFrame, width=15, anchor='center')
         self.calenderMainView = ttk.Treeview(show='', selectmode='none', height=7)
         
@@ -165,14 +165,11 @@ class windowManagement(Frame):
         self.calenderMainView.insert('','end', values=cols, tag='header')
 
         font = tkinter.font.Font()
-        '''
-        !LEAVE OUT FOR MAX WIDTH!
 
-        maxwidth = max(font.measure(col) for col in cols)*2
+        maxwidth = max(font.measure(col) for col in cols)*5
         for col in cols:
             self.calenderMainView.column(col, width=maxwidth, minwidth=maxwidth, anchor='e')
 
-        '''
  
     def calenderMake(self):
         year, month = self.date.year, self.date.month
@@ -192,7 +189,7 @@ class windowManagement(Frame):
         height = height[:height.index('+')]
         self.calenderMainView.master.minsize(width, height)
     
-    ''' Main GUI Callbacks '''
+    ### Main GUI Callbacks ###
     
     #New Event
     def onNewEvent(self):
@@ -210,8 +207,23 @@ class windowManagement(Frame):
     def onLoad(self):
         print("This Will Load The Calender From File.")
     
+    #Change To Previous Month View
+    def setPreviousMonth(self):
+        self.date = self.date - self.timedelta(days=1)
+        self.date = self.datetime(self.date.year, self.date.month, 1)
+        self.calenderMake()
+
+    #Change To Next Month View
+    def setNextMonth(self):
+        year, month = self.date.year, self.date.month
+        self.date = self.date + self.timedelta(days=calendar.monthrange(year, month)[1] + 1)
+        self.date = self.datetime(self.date.year, self.date.month, 1)
+        self.calenderMake()
+        
     #Close Window & Quit Program
     def onExit(self):
         self.parent.destroy()
         self.quit()
+
+    
    
