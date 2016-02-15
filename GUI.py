@@ -41,9 +41,13 @@ class windowManagement(Frame):
 
         #Drop Down Menu -FILE
         guiMenubarFile = Menu(guiMenubar)
+        guiMenubarHelp = Menu(guiMenubar)
 
         #Action Menu - NEW
         guiMenubarFileNew = Menu(guiMenubarFile)
+
+        #Action Menu - Help Me
+        guiMenubarHelpContents = Menu(guiMenubarHelp)
         
         #Add Options For NEW Menu
         guiMenubarFileNew.add_command(label="Event", command=self.onNewEvent) #New Event
@@ -59,6 +63,10 @@ class windowManagement(Frame):
         #Quit Option
         guiMenubarFile.add_command(label="Quit", command=self.onExit)
         guiMenubar.add_cascade(label="File", menu=guiMenubarFile)
+
+        #Help Dropdown
+        guiMenubarHelp.add_command(label="Contents...", command=self.onExit)
+        guiMenubar.add_cascade(label="Help", menu=guiMenubarHelp)
 
         #TOOLBAR
         guiToolbar = Frame(self.parent, bd=1, relief=RAISED)
