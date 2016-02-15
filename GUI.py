@@ -41,13 +41,11 @@ class windowManagement(Frame):
 
         #Drop Down Menu -FILE
         guiMenubarFile = Menu(guiMenubar)
+        guiMenubarCalendar = Menu(guiMenubar)
         guiMenubarHelp = Menu(guiMenubar)
 
         #Action Menu - NEW
         guiMenubarFileNew = Menu(guiMenubarFile)
-
-        #Action Menu - Help Me
-        guiMenubarHelpContents = Menu(guiMenubarHelp)
         
         #Add Options For NEW Menu
         guiMenubarFileNew.add_command(label="Event", command=self.onNewEvent) #New Event
@@ -64,6 +62,10 @@ class windowManagement(Frame):
         guiMenubarFile.add_command(label="Quit", command=self.onExit)
         guiMenubar.add_cascade(label="File", menu=guiMenubarFile)
 
+        #Calendar Dropdown
+        guiMenubarCalendar.add_command(label="Import", command=self.onSave)
+        guiMenubar.add_cascade(label="Calendar", menu=guiMenubarCalendar)
+        
         #Help Dropdown
         guiMenubarHelp.add_command(label="Contents...", command=self.onExit)
         guiMenubar.add_cascade(label="Help", menu=guiMenubarHelp)
@@ -106,8 +108,6 @@ class windowManagement(Frame):
         self.calenderMake()
         
         self.pack()
-
-
     
     def calenderMake(self):
         calenderHeader = "Month"
