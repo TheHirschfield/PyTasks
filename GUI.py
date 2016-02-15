@@ -60,16 +60,35 @@ class windowManagement(Frame):
         #TOOLBAR
         guiToolbar = Frame(self.parent, bd=1, relief=RAISED)
 
+        #New Event Button
+        self.img = Image.open("resources/new.png")
+        newImage = ImageTk.PhotoImage(self.img)
+        
         #Save Button
         self.img = Image.open("resources/save.png")
         saveImage = ImageTk.PhotoImage(self.img)
+
+        #Load Button
+        self.img = Image.open("resources/load.png")
+        loadImage = ImageTk.PhotoImage(self.img)
+        
+        #Add New Event Button to Toolbar
+        newButton = Button(guiToolbar, image=newImage, relief=FLAT, command=self.onNewEvent)
+        newButton.image = newImage
+        newButton.pack(side=LEFT, padx=2,pady=2)
 
         #Add Save Button to Toolbar
         saveButton = Button(guiToolbar, image=saveImage, relief=FLAT, command=self.onSave)
         saveButton.image = saveImage
         saveButton.pack(side=LEFT, padx=2,pady=2)
 
+        #Add Load Button to Toolbar
+        loadButton = Button(guiToolbar, image=loadImage, relief=FLAT, command=self.onLoad)
+        loadButton.image = loadImage
+        loadButton.pack(side=LEFT, padx=2,pady=2)
+
         guiToolbar.pack(side=TOP, fill=X)
+        
         self.pack()
 
     #New Event
