@@ -12,7 +12,6 @@
 
 
 #IMPORTS
-import csv
 import sys
 from tkinter import *
 
