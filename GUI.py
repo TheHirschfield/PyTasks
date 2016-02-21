@@ -268,6 +268,9 @@ class windowManagement(Frame):
     def addToNotes(self,txt):
         self.notesBox.delete(1.0, END)
         self.notesBox.insert(END, txt)
+
+    def getFromNotes(self):
+        return self.notesBox.get("1.0",'end-1c')
     
     ### Main GUI Callbacks ###
     
