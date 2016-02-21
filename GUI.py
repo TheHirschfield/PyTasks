@@ -200,10 +200,17 @@ class windowManagement(Frame):
         self.eventMainView = ttk.Notebook(eventViewerFrame, name='notebook')
 
         tab1 = ttk.Frame(self.eventMainView)
-        self.eventMainView.add(tab1, text="Events")
+        self.eventMainView.add(tab1, text="Notes")
 
         self.eventMainView.pack(fill='both', expand=Y, side='top')
-    
+
+        #Event Tab Text Box
+        txt = Text(tab1, wrap=WORD, width=40, height=10)
+        vscroll = ttk.Scrollbar(tab1, orient=VERTICAL, command=txt.yview)
+        txt['yscroll'] = vscroll.set
+        vscroll.pack(side=RIGHT, fill=Y)
+        txt.pack(fill=BOTH, expand=Y)
+        
     ### Main GUI Callbacks ###
     
     #New Event
