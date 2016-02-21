@@ -219,11 +219,12 @@ class windowManagement(Frame):
         self.eventMainView.pack(fill='both', expand=Y, side='top')
 
         #Event Tab Text Box
-        txt = Text(tab1, wrap=WORD, width=40, height=10)
-        vscroll = ttk.Scrollbar(tab1, orient=VERTICAL, command=txt.yview)
-        txt['yscroll'] = vscroll.set
+        self.notesBox = Text(tab1, wrap=WORD, width=40, height=10)
+        vscroll = ttk.Scrollbar(tab1, orient=VERTICAL, command=self.notesBox.yview)
+        self.notesBox['yscroll'] = vscroll.set
         vscroll.pack(side=RIGHT, fill=Y)
-        txt.pack(fill=BOTH, expand=Y)
+        self.notesBox.pack(fill=BOTH, expand=Y)
+
 
     def showSelected(self, text, bbox):
 
@@ -261,6 +262,12 @@ class windowManagement(Frame):
         text = '%02d' % text
         self.selected = (text, item, column)
         self.showSelected(text, bbox)
+        self.addToNotes("User Selected: " + text + " " + str(self.date.month) + " " + str(self.date.year))
+
+    #Notes Box Add
+    def addToNotes(self,txt):
+        self.notesBox.delete(1.0, END)
+        self.notesBox.insert(END, txt)
     
     ### Main GUI Callbacks ###
     
