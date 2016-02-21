@@ -39,7 +39,10 @@ class windowManagement(Frame):
         firstDay = calendar.MONDAY
         year = self.datetime.now().year
         month = self.datetime.now().month
+        selectedBg = '#9bc0d9' # Previous - 84b5d3
+        selectedFg = '#ffffff'
 
+        
         self.date = self.datetime(year,month,1)
         self.selected = None
 
@@ -53,6 +56,8 @@ class windowManagement(Frame):
         self.calenderPlaceWidget()
         self.calenderConfig()
 
+        self.setupSelected(selectedBg, selectedFg)
+        
         self.items = [self.calenderMainView.insert('', 'end', values='') for _ in range(6)]
         
         self.calenderMake()
@@ -193,6 +198,15 @@ class windowManagement(Frame):
         self.calenderMainView.master.minsize(width, height)
 
 
+    def setupSelected(self, selectedBg, selectedFg):
+        self.font = tkinter.font.Font()
+        self.canvas = canvas = tkinter.Canvas(self.calenderMainView, background=selectedBg, borderwidth=0, highlightthickness=0)
+        canvas.text = canvas.create_text(0,0,fil=selectedFg, anchor='w')
+
+        canvas.bind('<ButtonPress-1>', lambda evt: canvas.place_forget())
+        self.calenderMainView.bind('<Configure>', lambda evt: canvas.place_forget())
+        self.calenderMainView.bind('<ButtonPress-1>', self.selectedDate)
+    
     def eventViewerPlace(self):
         eventViewerFrame = ttk.Frame(self)               
         eventViewerFrame.pack(in_=self, side='top',fill='both', expand='Y')
@@ -210,7 +224,44 @@ class windowManagement(Frame):
         txt['yscroll'] = vscroll.set
         vscroll.pack(side=RIGHT, fill=Y)
         txt.pack(fill=BOTH, expand=Y)
-        
+
+    def showSelected(self, text, bbox):
+
+        x, y, width, height = bbox
+
+        textw = self.font.measure(text)
+
+        canvas = self.canvas
+        canvas.configure(width=width, height=height)
+        canvas.coords(canvas.text, width/2 - textw/4, height / 2 - 1)
+        canvas.itemconfigure(canvas.text, text=text)
+        canvas.place(in_=self.calenderMainView, x=x, y=y)
+    
+    #User Input Calls
+    def selectedDate(self, evt):
+        x, y, widget = evt.x, evt.y, evt.widget
+        item = widget.identify_row(y)
+        column = widget.identify_column(x)
+
+        if not column or not item in self.items:
+            return
+
+        itemValues = widget.item(item)['values']
+        if not len(itemValues):
+            return
+
+        text = itemValues[int(column[1]) - 1]
+        if not text:
+            return
+
+        bbox = widget.bbox(item, column)
+        if not bbox:
+            return
+
+        text = '%02d' % text
+        self.selected = (text, item, column)
+        self.showSelected(text, bbox)
+    
     ### Main GUI Callbacks ###
     
     #New Event
