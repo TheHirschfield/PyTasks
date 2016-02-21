@@ -304,12 +304,36 @@ class windowManagement(Frame):
     
     #Change To Previous Month View
     def setPreviousMonth(self):
+        #Remove Overlay Location
+        self.canvas.place_forget()
+
+        #Save Current Note
+        if self.currentTime != "" and self.getFromNotes() != "":
+            if getNote(self.currentTime) != "":
+                removeNote(self.currentTime)
+            addNote(self.currentTime, self.getFromNotes())
+
+        #Wipe Note
+        self.addToNotes("")
+            
         self.date = self.date - self.timedelta(days=1)
         self.date = self.datetime(self.date.year, self.date.month, 1)
         self.calenderMake()
 
     #Change To Next Month View
     def setNextMonth(self):
+        #Remove Overlay Location
+        self.canvas.place_forget()
+
+        #Save Current Note
+        if self.currentTime != "" and self.getFromNotes() != "":
+            if getNote(self.currentTime) != "":
+                removeNote(self.currentTime)
+            addNote(self.currentTime, self.getFromNotes())
+
+        #Wipe Note
+        self.addToNotes("")
+        
         year, month = self.date.year, self.date.month
         self.date = self.date + self.timedelta(days=calendar.monthrange(year, month)[1] + 1)
         self.date = self.datetime(self.date.year, self.date.month, 1)
