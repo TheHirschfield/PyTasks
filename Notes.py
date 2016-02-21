@@ -28,11 +28,13 @@ def addNote(time, note):
 
 #Remove Saved Note
 def removeNote(time):
-    
-    for n in range(0, len(notes)):
-        if notes[n][0] == time:
-            del notes[n]
-            print ("Note Removed: ", time)
+    if len(notes) > 0:
+        for n in range(0, len(notes)):
+            if notes[n][0] == time:
+                del notes[n]
+                print ("Note Removed: ", time)
+                return True
+    return False
 
 
 #Get Note For Date

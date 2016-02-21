@@ -18,6 +18,7 @@ import tkinter.font
 import calendar
 
 from Events import *
+from Notes import *
 
 def getCalendar(locale, fd):
     if locale is None:
@@ -41,11 +42,12 @@ class windowManagement(Frame):
         month = self.datetime.now().month
         selectedBg = '#9bc0d9' # Previous - 84b5d3
         selectedFg = '#ffffff'
-
         
         self.date = self.datetime(year,month,1)
         self.selected = None
+        self.currentTime = ""
 
+    
         self.cal = getCalendar(None,firstDay)
         
         self.parent = parent
@@ -240,6 +242,12 @@ class windowManagement(Frame):
     
     #User Input Calls
     def selectedDate(self, evt):
+        #Save Old Date
+        if self.currentTime != "" and self.getFromNotes() != "":
+            if getNote(self.currentTime) != "":
+                removeNote(self.currentTime)
+            addNote(self.currentTime, self.getFromNotes())
+
         x, y, widget = evt.x, evt.y, evt.widget
         item = widget.identify_row(y)
         column = widget.identify_column(x)
@@ -262,7 +270,11 @@ class windowManagement(Frame):
         text = '%02d' % text
         self.selected = (text, item, column)
         self.showSelected(text, bbox)
-        self.addToNotes("User Selected: " + text + " " + str(self.date.month) + " " + str(self.date.year))
+        self.currentTime = text + " " + str(self.date.month) + " " + str(self.date.year)
+
+
+        self.addToNotes(getNote(self.currentTime))
+        
 
     #Notes Box Add
     def addToNotes(self,txt):
