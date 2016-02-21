@@ -48,16 +48,18 @@ class windowManagement(Frame):
         self.parent = parent
         self.initUI()
 
+        #Main Calender Widget
         self.calenderStyleWidget()
         self.calenderPlaceWidget()
         self.calenderConfig()
 
-        self.items = [self.calenderMainView.insert('', 'end', values='')
-                            for _ in range(6)]
+        self.items = [self.calenderMainView.insert('', 'end', values='') for _ in range(6)]
         
         self.calenderMake()
-
         self.calenderMainView.bind('<Map>',self.minsize)
+
+        #Add Events Listing Tabs
+        self.eventViewerPlace()
         
     #Main Window Creation
     def initUI(self):
@@ -93,8 +95,9 @@ class windowManagement(Frame):
         guiMenubar.add_cascade(label="File", menu=guiMenubarFile)
 
         #Calendar Dropdown
-        guiMenubarCalendar.add_command(label="Import", command=self.onSave)
-        guiMenubar.add_cascade(label="Calendar", menu=guiMenubarCalendar)
+        guiMenubarCalendar.add_command(label="Next Month", command=self.setNextMonth)
+        guiMenubarCalendar.add_command(label="Previous Month", command=self.setPreviousMonth)
+        guiMenubar.add_cascade(label="View", menu=guiMenubarCalendar)
         
         #Help Dropdown
         guiMenubarHelp.add_command(label="Contents...", command=self.onExit)
@@ -157,7 +160,7 @@ class windowManagement(Frame):
         leftMonthChangeButton.grid(in_=calenderFrame)
         self.calenderHeader.grid(in_=calenderFrame, column=1, row=0, padx=12)
         rightMonthChangeButton.grid(in_=calenderFrame, column=2, row=0)
-        self.calenderMainView.pack(in_=self, expand=1, fill='both', side='bottom')
+        self.calenderMainView.pack(in_=self, fill='x', side='top')
 
     def calenderConfig(self):
         cols = self.cal.formatweekheader(3).split()
@@ -188,6 +191,18 @@ class windowManagement(Frame):
         width, height = self.calenderMainView.master.geometry().split('x')
         height = height[:height.index('+')]
         self.calenderMainView.master.minsize(width, height)
+
+
+    def eventViewerPlace(self):
+        eventViewerFrame = ttk.Frame(self)               
+        eventViewerFrame.pack(in_=self, side='top',fill='both', expand='Y')
+        
+        self.eventMainView = ttk.Notebook(eventViewerFrame, name='notebook')
+
+        tab1 = ttk.Frame(self.eventMainView)
+        self.eventMainView.add(tab1, text="Events")
+
+        self.eventMainView.pack(fill='both', expand=Y, side='top')
     
     ### Main GUI Callbacks ###
     
