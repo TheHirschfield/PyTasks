@@ -65,7 +65,7 @@ class windowManagement(Frame):
     def initUI(self):
 
         #Add Window Title
-        self.parent.title("U08007")
+        self.parent.title("Personal Organiser")
         
         #MENU BAR
         guiMenubar = Menu(self.parent)
