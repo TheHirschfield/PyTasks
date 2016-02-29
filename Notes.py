@@ -44,4 +44,8 @@ def getNote(time):
             return notes[n][1]
 
     return ""
-        
+
+#Export Notes To File
+def exportNoteToFile():
+    print("")
+    return ""

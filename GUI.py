@@ -80,19 +80,24 @@ class windowManagement(Frame):
 
         #Drop Down Menu -FILE
         guiMenubarFile = Menu(guiMenubar)
+        guiMenubarEdit = Menu(guiMenubar)
         guiMenubarCalendar = Menu(guiMenubar)
         guiMenubarHelp = Menu(guiMenubar)
 
         #Action Menu - NEW
         guiMenubarFileNew = Menu(guiMenubarFile)
+        guiMenubarFileExport = Menu(guiMenubarFile)
         
         #Add Options For NEW Menu
-        guiMenubarFileNew.add_command(label="Event", command=self.onNewEvent) #New Event
+        guiMenubarFileNew.add_command(label="Task", command=self.onNewEvent) #New Task
         guiMenubarFileNew.add_command(label="Tag", command=self.onNewTag) #New Tag
         guiMenubarFile.add_cascade(label="New", menu=guiMenubarFileNew, underline=0)
 
         guiMenubarFile.add_command(label="Save", command=self.onSave)
         guiMenubarFile.add_command(label="Load", command=self.onLoad)
+
+        guiMenubarFileExport.add_command(label="Notes", command=self.exportNotes)
+        guiMenubarFile.add_cascade(label="Export", menu=guiMenubarFileExport, underline=0)
         
         #Add Separator to Dropdown
         guiMenubarFile.add_separator()
@@ -101,6 +106,10 @@ class windowManagement(Frame):
         guiMenubarFile.add_command(label="Quit", command=self.onExit)
         guiMenubar.add_cascade(label="File", menu=guiMenubarFile)
 
+        #Edit Dropdown
+        guiMenubarEdit.add_command(label="Clear Note", command=self.clearNote)
+        guiMenubar.add_cascade(label="Edit", menu=guiMenubarEdit)
+        
         #Calendar Dropdown
         guiMenubarCalendar.add_command(label="Next Month", command=self.setNextMonth)
         guiMenubarCalendar.add_command(label="Previous Month", command=self.setPreviousMonth)
@@ -215,12 +224,21 @@ class windowManagement(Frame):
         
         self.eventMainView = ttk.Notebook(eventViewerFrame, name='notebook')
 
+        #Event Tab Text Box - Tab 0
+        tab0 = ttk.Frame(self.eventMainView)
+        self.eventMainView.add(tab0, text="Tasks")
+
+        self.eventMainView.pack(fill='both', expand=Y, side='top')
+
+
+        #self.notesBox.pack(fill=BOTH, expand=Y)
+
+        #Note Tab Text Box - Tab 1
         tab1 = ttk.Frame(self.eventMainView)
         self.eventMainView.add(tab1, text="Notes")
 
         self.eventMainView.pack(fill='both', expand=Y, side='top')
 
-        #Event Tab Text Box
         self.notesBox = Text(tab1, wrap=WORD, width=40, height=10)
         vscroll = ttk.Scrollbar(tab1, orient=VERTICAL, command=self.notesBox.yview)
         self.notesBox['yscroll'] = vscroll.set
@@ -301,7 +319,18 @@ class windowManagement(Frame):
     #Load Calender
     def onLoad(self):
         print("This Will Load The Calender From File.")
-    
+
+    def clearNote(self):
+        self.canvas.place_forget()
+        if self.currentTime != "" and self.getFromNotes() != "":
+            if getNote(self.currentTime) != "":
+                removeNote(self.currentTime)
+
+        self.addToNotes("")
+
+    def exportNotes(self):
+        exportNoteToFile()
+            
     #Change To Previous Month View
     def setPreviousMonth(self):
         #Remove Overlay Location
