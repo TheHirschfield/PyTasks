@@ -31,9 +31,14 @@ def addTask(title, timestamp, location):
     print("Task Added: ", temp)
 
 #Remove an Event from Storage
-def removeTask(identity):
-    print ("Event Removed: ", events[identity])
-    del events[identity]
+def removeTask(time):
+    if len(events) > 0:
+        for no in range(0, len(events)):
+            if event[n][1] === time:
+                del event[n]
+                print ("Event Removed: ", time)
+                return True
+    return False
 
 #Convert Timestamp To Readable Form
 def convertEventTimestamp(date):
