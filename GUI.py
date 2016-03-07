@@ -89,7 +89,7 @@ class windowManagement(Frame):
         guiMenubarFileExport = Menu(guiMenubarFile)
         
         #Add Options For NEW Menu
-        guiMenubarFileNew.add_command(label="Task", command=self.onNewEvent) #New Task
+        guiMenubarFileNew.add_command(label="Task", command=self.onNewTask) #New Task
         guiMenubarFileNew.add_command(label="Tag", command=self.onNewTag) #New Tag
         guiMenubarFile.add_cascade(label="New", menu=guiMenubarFileNew, underline=0)
 
@@ -135,7 +135,7 @@ class windowManagement(Frame):
         loadImage = ImageTk.PhotoImage(self.img)
         
         #Add New Event Button to Toolbar
-        newButton = Button(guiToolbar, image=newImage, relief=FLAT, command=self.onNewEvent)
+        newButton = Button(guiToolbar, image=newImage, relief=FLAT, command=self.onNewTask)
         newButton.image = newImage
         newButton.pack(side=LEFT, padx=2,pady=2)
 
@@ -305,9 +305,45 @@ class windowManagement(Frame):
     ### Main GUI Callbacks ###
     
     #New Event
-    def onNewEvent(self):
-        print("This Will Allow The User To Create An Event.")
+    def onNewTask(self):
+        print("This Will Allow The User To Create An Task.")
 
+        self.taskWindows = Toplevel(self)
+        self.taskWindows.wm_title("New Task")
+
+        Label(self.taskWindows, text="Task Name").grid(row=0)
+        Label(self.taskWindows, text="Task Day:").grid(row=1)
+        Label(self.taskWindows, text="Task Month:").grid(row=2)
+        Label(self.taskWindows, text="Task Year:").grid(row=3)
+
+        self.taskGrid1 = Entry(self.taskWindows)
+        self.taskGrid2 = Entry(self.taskWindows)
+        self.taskGrid3 = Entry(self.taskWindows)
+        self.taskGrid4 = Entry(self.taskWindows)
+
+        self.taskGrid1.grid(row=0, column=1)
+        self.taskGrid2.grid(row=1, column=1)
+        self.taskGrid3.grid(row=2, column=1)
+        self.taskGrid4.grid(row=3, column=1)
+        
+        Button(self.taskWindows, text='Add', command=self.taskWindowAdd).grid(row=5, column=0, sticky=W, pady=4)
+        Button(self.taskWindows, text='Cancel', command=self.taskWindowClose).grid(row=5, column=1, sticky=W, pady=4)
+
+    def taskWindowAdd(self):
+        print("Task Name: " + self.taskGrid1.get())
+        print("Task Day: " + self.taskGrid2.get())
+        print("Task Month: " + self.taskGrid3.get())
+        print("Task Year: " + self.taskGrid4.get())
+
+        dateTime = self.taskGrid2.get() + " " + self.taskGrid3.get() + " " + self.taskGrid4.get();
+
+        addTask(self.taskGrid1.get(),dateTime,"unknown")
+        
+        self.taskWindowClose()
+    
+    def taskWindowClose(self):
+        self.taskWindows.destroy()
+    
     #New Tag
     def onNewTag(self):
         print("This Will Allow The User To Create A Tag.")

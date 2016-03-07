@@ -19,7 +19,7 @@ import csv
 events = []
 
 #Add Event to Storage
-def addEvent(title, timestamp, location):
+def addTask(title, timestamp, location):
 
     #Create Temp New Event List
     temp = [title, timestamp, location]
@@ -28,10 +28,10 @@ def addEvent(title, timestamp, location):
     events.append(temp)
 
     #Debug Notify
-    print("Event Added: ", temp)
+    print("Task Added: ", temp)
 
 #Remove an Event from Storage
-def removeEvent(identity):
+def removeTask(identity):
     print ("Event Removed: ", events[identity])
     del events[identity]
 
@@ -40,5 +40,5 @@ def convertEventTimestamp(date):
     return datetime.datetime.fromtimestamp(date).strftime('%Y-%m-%d %H:%M:%S')
 
 
-addEvent("Birthday", time.time(),"Home")
-removeEvent(0)
+addTask("Birthday", "15 03 2016","Home")
+removeTask(0)
