@@ -56,5 +56,13 @@ def convertEventTimestamp(date):
     return datetime.datetime.fromtimestamp(date).strftime('%Y-%m-%d %H:%M:%S')
 
 
+def saveToEFile(eList):
+    eFile = open('task.csv', 'w')
+    eWriter = csv.writer(eFile)
+    data = events
+    eWriter.writerows(data)
+    eFile.close()
+
+
 addTask("Birthday", "15 03 2016","Home")
 removeTask("15 03 2016")
