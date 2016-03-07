@@ -43,8 +43,10 @@ def removeTask(time):
 
 #Get Note For Date
 def getTask(time):
+    print ("Attempting to find task at: ", time)
     for n in range(0, len(events)):
-        if events[n][0] == time:
+        if events[n][1] == time:
+            print("Returning Task: " + events[n][1])
             return events[n][1]
 
     return ""
