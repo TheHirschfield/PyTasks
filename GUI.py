@@ -108,6 +108,7 @@ class windowManagement(Frame):
 
         #Edit Dropdown
         guiMenubarEdit.add_command(label="Clear Note", command=self.clearNote)
+        guiMenubarEdit.add_command(label="Clear Event On Day", command=self.clearEventOnDay)
         guiMenubar.add_cascade(label="Edit", menu=guiMenubarEdit)
         
         #Calendar Dropdown
@@ -230,8 +231,11 @@ class windowManagement(Frame):
 
         self.eventMainView.pack(fill='both', expand=Y, side='top')
 
+        self.eventsBox = Text(tab0, wrap=WORD, width=40, height=10)
+        self.eventsBox.pack(fill=BOTH, expand=Y)
 
-        #self.notesBox.pack(fill=BOTH, expand=Y)
+        self.eventsBox.config(state=DISABLED)
+        
 
         #Note Tab Text Box - Tab 1
         tab1 = ttk.Frame(self.eventMainView)
@@ -290,15 +294,16 @@ class windowManagement(Frame):
         self.showSelected(text, bbox)
         self.currentTime = text + " " + str(self.date.month) + " " + str(self.date.year)
 
-
+        self.addToTasks(getTask(self.currentTime))
         self.addToNotes(getNote(self.currentTime))
+
         
 
     #Notes Box Add
     def addToNotes(self,txt):
         self.notesBox.delete(1.0, END)
         self.notesBox.insert(END, txt)
-
+    
     def getFromNotes(self):
         return self.notesBox.get("1.0",'end-1c')
     
@@ -340,9 +345,17 @@ class windowManagement(Frame):
         addTask(self.taskGrid1.get(),dateTime,"unknown")
         
         self.taskWindowClose()
+
+    def clearEventOnDay(self):
+        if self.currentTime != "":
+            removeTask(self.currentTime)
     
     def taskWindowClose(self):
         self.taskWindows.destroy()
+
+    def addToTasks(self,txt):
+        self.eventsBox.delete(1.0, END)
+        self.eventsBox.insert(END, txt)
     
     #New Tag
     def onNewTag(self):

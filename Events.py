@@ -32,6 +32,7 @@ def addTask(title, timestamp, location):
 
 #Remove an Event from Storage
 def removeTask(time):
+    print ("Attempting to remove task at: ", time)
     if len(events) > 0:
         for n in range(0, len(events)):
             if events[n][1] == time:
@@ -40,10 +41,18 @@ def removeTask(time):
                 return True
     return False
 
+#Get Note For Date
+def getTask(time):
+    for n in range(0, len(events)):
+        if events[n][0] == time:
+            return events[n][1]
+
+    return ""
+
 #Convert Timestamp To Readable Form
 def convertEventTimestamp(date):
     return datetime.datetime.fromtimestamp(date).strftime('%Y-%m-%d %H:%M:%S')
 
 
 addTask("Birthday", "15 03 2016","Home")
-removeTask(0)
+removeTask("15 03 2016")
