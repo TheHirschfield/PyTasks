@@ -33,9 +33,9 @@ def addTask(title, timestamp, location):
 #Remove an Event from Storage
 def removeTask(time):
     if len(events) > 0:
-        for no in range(0, len(events)):
-            if event[n][1] === time:
-                del event[n]
+        for n in range(0, len(events)):
+            if events[n][1] == time:
+                del events[n]
                 print ("Event Removed: ", time)
                 return True
     return False
