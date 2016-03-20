@@ -97,6 +97,7 @@ class windowManagement(Frame):
         guiMenubarFile.add_command(label="Load", command=self.onLoad)
 
         guiMenubarFileExport.add_command(label="Notes", command=self.exportNotes)
+        guiMenubarFileExport.add_command(label="Tasks", command = self.exportTasks)
         guiMenubarFile.add_cascade(label="Export", menu=guiMenubarFileExport, underline=0)
         
         #Add Separator to Dropdown
@@ -379,6 +380,9 @@ class windowManagement(Frame):
 
     def exportNotes(self):
         exportNoteToFile()
+
+    def exportTasks(self):
+        saveTasks(self)
             
     #Change To Previous Month View
     def setPreviousMonth(self):
