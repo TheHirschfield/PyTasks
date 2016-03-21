@@ -204,6 +204,8 @@ class windowManagement(Frame):
             week = _cal[indx] if indx < len(_cal) else []
             fmt_week = [('%02d' % day) if day else '' for day in week]
             self.calenderMainView.item(i, values=fmt_week)
+
+        self.eventRegisteredPlace()
     
     def minsize(self,evt):
         width, height = self.calenderMainView.master.geometry().split('x')
@@ -219,6 +221,29 @@ class windowManagement(Frame):
         canvas.bind('<ButtonPress-1>', lambda evt: canvas.place_forget())
         self.calenderMainView.bind('<Configure>', lambda evt: canvas.place_forget())
         self.calenderMainView.bind('<ButtonPress-1>', self.selectedDate)
+
+    def eventRegisteredPlace(self):
+
+        for x in range (0,len(events)):
+
+            temp_date = events[x][1]
+            
+            print("Preparing To Highlight: ",getTask(events[x][1]))
+
+            if str(self.date.year) == temp_date.split( )[2]:
+
+                if(self.date.month < 10):
+                    temp_month = "0" + str(self.date.month)
+                else:
+                    temp_month = self.date.month
+                
+                if str(temp_month) == temp_date.split( )[1]:
+                    print("Task Rendering Will Take Place for",getTask(events[x][1]))
+                else:
+                    print("Date", temp_month, "Does Not Fit Criteria For:",getTask(events[x][1]))
+
+            else:
+                print("Date", temp_date, "Does Not Fit Criteria For:",getTask(events[x][1]))
     
     def eventViewerPlace(self):
         eventViewerFrame = ttk.Frame(self)               
