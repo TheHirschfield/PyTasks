@@ -63,5 +63,5 @@ def saveTasks(eList):
         tWriter.writerows(data)
     t.close()
 
-addTask("Birthday", "15 03 2016","Home")
-removeTask("15 03 2016")
+addTask("Debug", "01 06 2016","Undefined")
+removeTask("01 06 2016")
