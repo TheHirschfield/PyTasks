@@ -58,7 +58,7 @@ def convertEventTimestamp(date):
 
 def saveTasks(eList):
     data = events
-    with open('task.csv', 'w', newline = '') as t:
+    with open('saves/task.csv', 'w', newline = '') as t:
         tWriter = csv.writer(t)
         tWriter.writerows(data)
     t.close()

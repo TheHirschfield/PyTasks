@@ -48,7 +48,7 @@ def getNote(time):
 #Export Notes To File
 def exportNoteToFile():
   data = notes
-  with open('notes.csv', 'w') as f:
+  with open('saves/notes.csv', 'w') as f:
     writer = csv.writer(f)
     writer.writerows(data)
   return ""
