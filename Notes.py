@@ -24,7 +24,7 @@ def addNote(time, note):
     notes.append(temp)
 
     #Debug Notify
-    print("Event Added: ", temp)
+    print("Note Added: ", temp)
 
 #Remove Saved Note
 def removeNote(time):
