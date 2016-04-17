@@ -46,8 +46,8 @@ def getTask(time):
     print ("Attempting to find task at: ", time)
     for n in range(0, len(events)):
         if events[n][1] == time:
-            print("Returning Task: " + events[n][1])
-            return events[n][1]
+            print("Returning Task: " + events[n][0])
+            return events[n][0]
 
     return ""
 
@@ -64,4 +64,4 @@ def saveTasks(eList):
     t.close()
 
 addTask("Debug", "01 6 2016","Undefined")
-#removeTask("01 06 2016")
+#removeTask("01 6 2016")

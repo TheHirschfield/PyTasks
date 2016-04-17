@@ -233,7 +233,7 @@ class windowManagement(Frame):
             if str(self.date.year) == temp_date.split( )[2]:
 
                 if(self.date.month < 10):
-                    temp_month = "0" + str(self.date.month)
+                    temp_month = str(self.date.month)
                 else:
                     temp_month = self.date.month
                 
@@ -325,6 +325,12 @@ class windowManagement(Frame):
 
         
 
+    #Tasks Box Add
+    def addToTasks(self,txt):
+        self.tasksBox.delete(1.0, END)
+        self.tasksBox.insert(END, txt)
+        print(txt)
+    
     #Notes Box Add
     def addToNotes(self,txt):
         self.notesBox.delete(1.0, END)
