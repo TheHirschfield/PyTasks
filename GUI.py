@@ -260,7 +260,7 @@ class windowManagement(Frame):
         self.eventsBox = Text(tab0, wrap=WORD, width=40, height=10)
         self.eventsBox.pack(fill=BOTH, expand=Y)
 
-        self.eventsBox.config(state=DISABLED)
+        #self.eventsBox.config(state=DISABLED)
         
 
         #Note Tab Text Box - Tab 1
