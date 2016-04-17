@@ -52,5 +52,15 @@ def exportNoteToFile():
     writer = csv.writer(f)
     writer.writerows(data)
   return ""
-exportNoteToFile()
-#print("")
+
+def importNoteFromFile():
+    print("Reading Notes File...")
+    with open('saves/notes.csv', 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            if len(row) == 2:
+                addNote(row[0], row[1])
+                print("Loaded Note From File: ", row)
+
+importNoteFromFile()
+        

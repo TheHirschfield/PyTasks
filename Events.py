@@ -63,5 +63,13 @@ def saveTasks():
         tWriter.writerows(data)
     t.close()
 
-addTask("Debug", "01 6 2016","Undefined")
-#removeTask("01 6 2016")
+def readTasks():
+    print("Reading Events File...")
+    with open('saves/task.csv', 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            if len(row) == 3:
+                addTask(row[0], row[1], row[2])
+                print("Loaded Event From File: ", row)
+
+readTasks()

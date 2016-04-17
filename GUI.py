@@ -413,7 +413,7 @@ class windowManagement(Frame):
         exportNoteToFile()
 
     def exportTasks(self):
-        saveTasks(self)
+        saveTasks()
             
     #Change To Previous Month View
     def setPreviousMonth(self):
@@ -454,6 +454,8 @@ class windowManagement(Frame):
         
     #Close Window & Quit Program
     def onExit(self):
+        exportNoteToFile()
+        saveTasks()
         self.parent.destroy()
         self.quit()
 
