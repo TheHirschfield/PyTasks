@@ -43,12 +43,19 @@ def removeTask(time):
 
 #Get Note For Date
 def getTask(time):
+    returned = False
+    taskList = ""
     print ("Attempting to find task at: ", time)
     for n in range(0, len(events)):
         if events[n][1] == time:
             print("Returning Task: " + events[n][0])
-            return events[n][0]
+            taskList += events[n][0] + "\n"
+            returned = True
+            
 
+    if returned:
+        return taskList
+    
     return ""
 
 #Convert Timestamp To Readable Form

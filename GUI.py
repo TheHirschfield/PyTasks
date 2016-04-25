@@ -395,11 +395,12 @@ class windowManagement(Frame):
 
     #Save Calender
     def onSave(self):
-        print("This Will Save The Calender To File.")
+        self.exportNotes()
+        self.exportTasks()
 
     #Load Calender
     def onLoad(self):
-        print("This Will Load The Calender From File.")
+        print("Refreshing Calender Lists..")
 
     def clearNote(self):
         self.canvas.place_forget()
